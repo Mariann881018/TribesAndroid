@@ -18,6 +18,7 @@
       android:layout_marginRight="160dp"
       android:layout_marginBottom="80dp"
       android:background="#99009688"
+      android:clickable="true"
       android:hint="@string/loginButton"
       android:lineSpacingExtra="10sp"
       android:textColor="#1A0202"
@@ -67,7 +68,8 @@
       android:textSize="24sp"
       android:visibility="visible"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/fstTxt4" />
+      app:layout_constraintTop_toBottomOf="@+id/fstTxt4"
+      android:inputType="" />
 
   <TextView
       android:id="@+id/fstTxt4"
