@@ -132,9 +132,10 @@
         android:layout_marginRight="160dp"
         android:layout_marginBottom="80dp"
         android:background="#99009688"
+        android:hint="@string/registerButton"
         android:lineSpacingExtra="10sp"
-        android:text="@string/registerButton"
         android:textColor="#1A0202"
+        android:textColorHint="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
