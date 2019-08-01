@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
 
@@ -20,6 +21,7 @@ public class Login extends AppCompatActivity {
         infoPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(Login.this, "You're signed in!", Toast.LENGTH_LONG).show();
                 infoPage();
             }
         });
