@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonLogin"
         android:layout_width="180dp"
         android:layout_height="80dp"
         android:layout_marginStart="160dp"
@@ -17,7 +17,8 @@
         android:layout_marginRight="160dp"
         android:layout_marginBottom="32dp"
         android:background="#99009688"
-        android:hint="@string/login"
+        android:hint="@string/loginButton"
+        android:textColorHint="#000000"
         android:textSize="24sp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/button2"
@@ -26,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonRegister"
         android:layout_width="180dp"
         android:layout_height="80dp"
         android:layout_marginStart="160dp"
@@ -35,12 +36,15 @@
         android:layout_marginRight="160dp"
         android:layout_marginBottom="80dp"
         android:background="#99009688"
-        android:hint="@string/register"
+        android:hint="@string/registerButton"
+        android:textColorHint="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"
