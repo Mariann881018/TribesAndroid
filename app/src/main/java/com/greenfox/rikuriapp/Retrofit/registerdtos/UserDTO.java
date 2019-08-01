@@ -1,5 +1,6 @@
 package com.greenfox.rikuriapp.Retrofit.registerdtos;
 
+
 public class UserDTO {
   private String username;
   private String password;
@@ -7,6 +8,7 @@ public class UserDTO {
 
   public UserDTO() {
   }
+
 
   public UserDTO(String username) {
     this.username = username;
