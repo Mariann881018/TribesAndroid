@@ -20,8 +20,6 @@ public interface JsonPlaceholderApi {
     @HTTP(method = "POST", path= "/api/kingdom/resources", hasBody = true)
     Call<List<ResourceDto>> callResources(@Body RequestBody kingdomId);
 
-    @POST("/login")
-
     @GET("/admin")
     Call callAdmin();
 }

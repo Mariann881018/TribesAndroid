@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,21 +26,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Register extends AppCompatActivity {
 
     protected Button login;
+    EditText  nameInput;
+    UserDTO userDTO;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
-        login = (Button) findViewById(R.id.btnReg);
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                login();
-            }
-        });
-
-        final Gson gson = new GsonBuilder()
+        Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
@@ -49,34 +44,42 @@ public class Register extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
+        nameInput = (EditText) findViewById(R.id.txtName);
 
-        UserDTO userDTO = new UserDTO("elvis", "password", "kingdom");
+        login = (Button) findViewById(R.id.btnReg);
 
-   //     Call<ResponseDTO> callReg = jsonPlaceholderApi.postOnRegister(userDTO);
-
-
-   /*     callReg.enqueue(new Callback<ResponseDTO>() {
-
+        final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<ResponseDTO> call, Response<ResponseDTO> response) {
-                if(response.isSuccessful()){
-                    int i = response.code();
-                }else{
-                    int i = response.code();
-
-                }
-
+            public void onClick(View view) {
+             userDTO = new UserDTO(nameInput.toString(), "pass", "kingdom");
+             register(jsonPlaceholderApi, userDTO );
             }
-
-            @Override
-            public void onFailure(Call<ResponseDTO> call, Throwable t) {
-            }});
-            */
+        });
     }
 
     public void login() {
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
+    }
+
+    public void register(JsonPlaceholderApi jsonPlaceholderApi, UserDTO userDTO){
+        Call<ResponseDTO> callReg = jsonPlaceholderApi.postOnRegister(userDTO);
+        callReg.enqueue(new Callback<ResponseDTO>() {
+
+            @Override
+            public void onResponse(Call<ResponseDTO> call, Response<ResponseDTO> response) {
+                if(response.isSuccessful()){
+                    int i = response.code();
+                    login();
+                }else{
+                    int i = response.code();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDTO> call, Throwable t) {
+            }});
     }
 }
