@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Register extends AppCompatActivity {
 
@@ -20,6 +21,7 @@ public class Register extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(Register.this, "Your registration was successful!", Toast.LENGTH_LONG).show();
                 login();
             }
         });
