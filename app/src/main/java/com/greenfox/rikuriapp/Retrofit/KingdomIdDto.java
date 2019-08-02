@@ -18,5 +18,4 @@ public class KingdomIdDto {
     public void setKingdomId(Long kingdomId) {
         this.kingdomId = kingdomId;
     }
-
 }
