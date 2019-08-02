@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+<<<<<<< HEAD
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -22,6 +23,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+=======
+import android.widget.Toast;
+>>>>>>> development
 
 public class Register extends AppCompatActivity {
 
@@ -52,8 +56,13 @@ public class Register extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
              userDTO = new UserDTO(nameInput.toString(), "pass", "kingdom");
              register(jsonPlaceholderApi, userDTO );
+=======
+                Toast.makeText(Register.this, "Your registration was successful!", Toast.LENGTH_LONG).show();
+                login();
+>>>>>>> development
             }
         });
     }
