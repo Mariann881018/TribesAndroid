@@ -11,17 +11,15 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.greenfox.rikuriapp.Retrofit.JsonPlaceholderApi;
-import com.greenfox.rikuriapp.Retrofit.KingdomIdDto;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.UserDTO;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import android.widget.Toast;
 
 public class Register extends AppCompatActivity {
 
@@ -56,11 +54,11 @@ public class Register extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             String name = nameInput.getText().toString();
 
-             userDTO = new UserDTO(name, passwordInput.getText().toString(),
+             userDTO = new UserDTO(nameInput.getText().toString(), passwordInput.getText().toString(),
                      kingdomInput.getText().toString());
              register(jsonPlaceholderApi, userDTO );
+
             }
         });
     }
@@ -78,9 +76,12 @@ public class Register extends AppCompatActivity {
             public void onResponse(Call<ResponseDTO> call, Response<ResponseDTO> response) {
                 if(response.isSuccessful()){
                     int i = response.code();
+                    Toast.makeText(Register.this, "Your registration was successful!", Toast.LENGTH_LONG).show();
                     login();
                 }else{
                     int i = response.code();
+                    String error = "Status: " + i;
+                    Toast.makeText(Register.this, error, Toast.LENGTH_LONG).show();
                 }
             }
 
