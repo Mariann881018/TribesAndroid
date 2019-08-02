@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity {
             }});
     }
 
-    public void infoPage(String extraIntent) {
+    public void infoPage() {
         Intent intent = new Intent(this, InfoPage.class);
         intent.putExtra("id", 1);
         startActivity(intent);
