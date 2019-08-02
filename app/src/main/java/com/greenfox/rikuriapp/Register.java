@@ -20,7 +20,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import android.widget.Toast;
 
 public class Register extends AppCompatActivity {
 
