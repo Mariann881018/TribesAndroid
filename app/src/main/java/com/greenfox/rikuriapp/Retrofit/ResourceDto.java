@@ -5,8 +5,7 @@ public class ResourceDto {
     private ResourceType type;
     private Long amount;
 
-    public ResourceDto() {
-    }
+    public ResourceDto(){}
 
     public ResourceDto(ResourceType type, Long amount) {
         this.type = type;

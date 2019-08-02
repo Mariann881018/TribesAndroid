@@ -11,10 +11,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.greenfox.rikuriapp.Retrofit.JsonPlaceholderApi;
+import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginUserDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
 
+import java.util.List;
+import java.util.Set;
+
+import okhttp3.internal.http2.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,15 +65,18 @@ public class Login extends AppCompatActivity {
     }
 
     public void login(JsonPlaceholderApi jsonPlaceholderApi, LoginUserDTO userDTO){
-        Call<ResponseDTO> callLog = jsonPlaceholderApi.postOnLogin(userDTO);
-        callLog.enqueue(new Callback<ResponseDTO>() {
+        Call<LoginResponseDTO> callLog = jsonPlaceholderApi.postOnLogin(userDTO);
+        callLog.enqueue(new Callback<LoginResponseDTO>() {
 
             @Override
-            public void onResponse(Call<ResponseDTO> call, Response<ResponseDTO> response) {
+            public void onResponse(Call<LoginResponseDTO> call, Response<LoginResponseDTO> response) {
                 if(response.isSuccessful()){
                     int i = response.code();
                     Toast.makeText(Login.this, "You're signed in!", Toast.LENGTH_LONG).show();
-                    infoPage();
+                    Set<String> headers =  response.headers().toMultimap().keySet();
+                    String token = response.headers().get("authorization");
+                    String userName = response.body().getUserName();
+                    infoPage(token, 11L, response.body().getUserName());
                 }else{
                     int i = response.code();
                     Toast.makeText(Login.this, Integer.toString(i), Toast.LENGTH_LONG).show();
@@ -75,14 +84,16 @@ public class Login extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseDTO> call, Throwable t) {
+            public void onFailure(Call<LoginResponseDTO> call, Throwable t) {
                 Toast.makeText(Login.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }});
     }
 
-    public void infoPage() {
+    public void infoPage(String extraIntent, Long kingdomId, String userName ) {
         Intent intent = new Intent(this, InfoPage.class);
-        intent.putExtra("id", 1);
+        intent.putExtra("token", extraIntent);
+        intent.putExtra("id", kingdomId);
+        intent.putExtra("username", userName);
         startActivity(intent);
     }
 }
