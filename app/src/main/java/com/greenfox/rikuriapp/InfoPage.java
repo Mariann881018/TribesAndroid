@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class InfoPage extends AppCompatActivity {
 
     ListView listBuildings;
     ListView listResources;
+    TextView user_kingdom_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class InfoPage extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
+
+        user_kingdom_name = (TextView) findViewById(R.id.username);
 
         listBuildings = (ListView) findViewById(R.id.listBuildings);
         final String buildings[] = {"Townhall", "Farm", "Mine", "Academy"};
