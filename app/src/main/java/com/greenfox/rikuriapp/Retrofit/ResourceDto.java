@@ -1,6 +1,7 @@
 package com.greenfox.rikuriapp.Retrofit;
 
 public class ResourceDto {
+
     private ResourceType type;
     private Long amount;
 

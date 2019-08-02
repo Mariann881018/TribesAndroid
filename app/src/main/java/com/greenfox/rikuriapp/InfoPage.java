@@ -1,22 +1,20 @@
 package com.greenfox.rikuriapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.greenfox.rikuriapp.Retrofit.JsonPlaceholderApi;
 import com.greenfox.rikuriapp.Retrofit.KingdomIdDto;
 import com.greenfox.rikuriapp.Retrofit.ResourceDto;
-import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
-import com.greenfox.rikuriapp.Retrofit.registerdtos.UserDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +31,7 @@ public class InfoPage extends AppCompatActivity {
     ListView listBuildings;
     ListView listResources;
     String userName;
+    TextView user_kingdom_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,8 @@ public class InfoPage extends AppCompatActivity {
         Long kingdomId = getIntent().getLongExtra("id", 1L);
         getResourcesAndBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
 
+        user_kingdom_name = (TextView) findViewById(R.id.username);
+
         listBuildings = (ListView) findViewById(R.id.listBuildings);
         final String buildings[] = {"Townhall", "Farm", "Mine", "Academy"};
         ArrayAdapter buildingArrayAdapter = new ArrayAdapter(this,
@@ -67,7 +68,8 @@ public class InfoPage extends AppCompatActivity {
 
         listResources = (ListView) findViewById(R.id.listResources);
         final String resources[] = {"Gold", "Food"};
-        ArrayAdapter resourceArrayAdapter = new ArrayAdapter(this,
+        ArrayAdapter resourceArrayAdapter = new ArrayAdapter(
+                this,
                 android.R.layout.simple_list_item_1,
                 Arrays.asList(resources));
         listResources.setAdapter(resourceArrayAdapter);
@@ -77,8 +79,9 @@ public class InfoPage extends AppCompatActivity {
                 Toast.makeText(InfoPage.this, "You selected: " + resources[i], Toast.LENGTH_LONG).show();
             }
         });
-    }
 
+        getResourcesAndBuildings(jsonPlaceholderApi, new KingdomIdDto(1L));
+    }
     public void getResourcesAndBuildings(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto kingdomId) {
         String token = getIntent().getStringExtra("token");
         Call<List<ResourceDto>> callResource = jsonPlaceholderApi.callResources(kingdomId, token);
@@ -99,8 +102,9 @@ public class InfoPage extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<ResourceDto>> call, Throwable t) {
-            }
-        });
-    }
+            public void onFailure(Call<List<ResourceDto>> call, Throwable t){
+                Toast.makeText(InfoPage.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }});
 }
+    }
+

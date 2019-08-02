@@ -8,4 +8,5 @@
     <string name="kingdom_name">Kingdom Name</string>
     <string name="registerButton">  Register  </string>
     <string name="loginButton">Login</string>
+    <string name="user_kingdom_name">Username</string>
 </resources>

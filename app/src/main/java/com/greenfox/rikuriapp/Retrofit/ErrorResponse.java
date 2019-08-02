@@ -1,7 +1,6 @@
 package com.greenfox.rikuriapp.Retrofit;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
     public class ErrorResponse {
 
@@ -11,6 +10,12 @@ import java.time.LocalDateTime;
         private Timestamp timeStamp;
 
         public ErrorResponse() {
+        }
+
+        public ErrorResponse(String httpStatus, String message, String path) {
+            this.httpStatus = httpStatus;
+            this.message = message;
+            this.path = path;
         }
 
         public String getHttpStatus() {
