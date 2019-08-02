@@ -53,6 +53,8 @@ public class InfoPage extends AppCompatActivity {
 
         user_kingdom_name = (TextView) findViewById(R.id.username);
 
+        user_kingdom_name.setText(userName);
+
         listBuildings = (ListView) findViewById(R.id.listBuildings);
         final String buildings[] = {"Townhall", "Farm", "Mine", "Academy"};
         ArrayAdapter buildingArrayAdapter = new ArrayAdapter(this,

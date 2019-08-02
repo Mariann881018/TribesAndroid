@@ -4,13 +4,15 @@ public class LoginResponseDTO {
     private String status;
     private String userName;
     private String password;
+    private Long kingdomId;
 
     public LoginResponseDTO(){}
 
-    public LoginResponseDTO(String status, String userName, String password) {
+    public LoginResponseDTO(String status, String userName, String password, Long kingdomId) {
         this.status = status;
         this.userName = userName;
         this.password = password;
+        this.kingdomId = kingdomId;
     }
 
     public String getStatus() {
