@@ -26,7 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Register extends AppCompatActivity {
 
     protected Button login;
-    EditText  nameInput;
+    private EditText  nameInput;
+    private EditText passwordInput;
+    private EditText kingdomInput;
     UserDTO userDTO;
 
 
@@ -45,6 +47,8 @@ public class Register extends AppCompatActivity {
                 .build();
 
         nameInput = (EditText) findViewById(R.id.txtName);
+        passwordInput = (EditText) findViewById(R.id.txtPwd);
+        kingdomInput = (EditText) findViewById(R.id.txtKingdom);
 
         login = (Button) findViewById(R.id.btnReg);
 
@@ -52,7 +56,10 @@ public class Register extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             userDTO = new UserDTO(nameInput.toString(), "pass", "kingdom");
+             String name = nameInput.getText().toString();
+
+             userDTO = new UserDTO(name, passwordInput.getText().toString(),
+                     kingdomInput.getText().toString());
              register(jsonPlaceholderApi, userDTO );
             }
         });
@@ -74,7 +81,6 @@ public class Register extends AppCompatActivity {
                     login();
                 }else{
                     int i = response.code();
-
                 }
             }
 
