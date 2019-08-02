@@ -18,6 +18,7 @@ import com.greenfox.rikuriapp.Retrofit.ResourceDto;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.UserDTO;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,12 +32,13 @@ public class InfoPage extends AppCompatActivity {
 
     ListView listBuildings;
     ListView listResources;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_page);
-
+        userName = getIntent().getStringExtra("username");
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -47,9 +49,8 @@ public class InfoPage extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
-
-        getResourcesAndBuildings(jsonPlaceholderApi, new KingdomIdDto(1L));
-
+        Long kingdomId = getIntent().getLongExtra("id", 1L);
+        getResourcesAndBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
 
         listBuildings = (ListView) findViewById(R.id.listBuildings);
         final String buildings[] = {"Townhall", "Farm", "Mine", "Academy"};
@@ -78,18 +79,19 @@ public class InfoPage extends AppCompatActivity {
         });
     }
 
-    public void getResourcesAndBuildings(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto kingdomId){
-        String token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0MyIsImV4cCI6MTU2NTU4MTA5MX0.vFearFaUK77XoYoeGJzcue8pWmgNUeHWvUhLPRhsk330o1cFKmA7NHkg0wehuim9owPP_IOwZ84npHlS_drQWQ";
+    public void getResourcesAndBuildings(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto kingdomId) {
+        String token = getIntent().getStringExtra("token");
         Call<List<ResourceDto>> callResource = jsonPlaceholderApi.callResources(kingdomId, token);
         callResource.enqueue(new Callback<List<ResourceDto>>() {
 
             @Override
             public void onResponse(Call<List<ResourceDto>> call, Response<List<ResourceDto>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     int i = response.code();
                     Toast.makeText(InfoPage.this, Integer.toString(i), Toast.LENGTH_LONG).show();
-
-                }else{
+                    List<ResourceDto> resourceDtos = new ArrayList<>();
+                    resourceDtos = response.body();
+                } else {
                     int i = response.code();
                     String error = "Status: " + i;
                     Toast.makeText(InfoPage.this, error, Toast.LENGTH_LONG).show();
@@ -98,6 +100,7 @@ public class InfoPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ResourceDto>> call, Throwable t) {
-            }});
+            }
+        });
     }
 }
