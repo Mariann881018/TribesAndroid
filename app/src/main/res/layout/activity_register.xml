@@ -48,7 +48,7 @@
             app:layout_constraintTop_toBottomOf="@+id/loginscrn" />
 
         <EditText
-            android:id="@+id/txtName"
+            android:id="@+id/registerNameEditTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="62dp"
@@ -75,10 +75,10 @@
             android:textStyle="bold"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtName" />
+            app:layout_constraintTop_toBottomOf="@+id/registerNameEditTxt" />
 
         <EditText
-            android:id="@+id/txtPwd"
+            android:id="@+id/registerPasswordEditTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="62dp"
@@ -95,20 +95,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="62dp"
-            android:layout_marginLeft="62dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="240dp"
-            android:layout_marginRight="240dp"
             android:background="#99009688"
             android:text="@string/kingdom_name"
             android:textColor="#110202"
             android:textSize="24sp"
             android:textStyle="bold"
             android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPwd" />
+            app:layout_constraintTop_toBottomOf="@+id/registerPasswordEditTxt" />
 
         <EditText
             android:id="@+id/txtKingdom"
