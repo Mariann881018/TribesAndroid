@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:background="@drawable/background"
-  android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
   tools:context=".Login">
 
   <Button
@@ -17,8 +17,8 @@
       android:layout_marginEnd="160dp"
       android:layout_marginRight="160dp"
       android:layout_marginBottom="80dp"
-      android:clickable="true"
       android:background="@drawable/rounded_corners"
+      android:clickable="true"
       android:hint="@string/loginButton"
       android:lineSpacingExtra="10sp"
       android:textColor="#1A0202"
@@ -28,11 +28,10 @@
       app:layout_constraintStart_toStartOf="parent" />
 
   <EditText
-      android:id="@+id/txtPwd3"
+      android:id="@+id/loginPasswordEditTxt"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="62dp"
-      android:layout_marginLeft="62dp"
       android:background="#99009688"
       android:ems="10"
       android:inputType="textPassword"
@@ -44,8 +43,7 @@
       android:id="@+id/thirdTxt2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="62dp"
-      android:layout_marginLeft="62dp"
+      android:layout_marginStart="60dp"
       android:layout_marginTop="20dp"
       android:background="#99009688"
       android:text="@string/password"
@@ -54,30 +52,27 @@
       android:textStyle="bold"
       android:visibility="visible"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/editText" />
+      app:layout_constraintTop_toBottomOf="@+id/loginNameEditTxt" />
 
   <EditText
-      android:id="@+id/editText"
+      android:id="@+id/loginNameEditTxt"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="62dp"
-      android:layout_marginLeft="62dp"
       android:autofillHints=""
       android:background="#99009688"
       android:ems="10"
       android:textSize="24sp"
       android:visibility="visible"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/fstTxt4"
-      android:inputType="" />
+      app:layout_constraintTop_toBottomOf="@+id/fstTxt4" />
 
   <TextView
       android:id="@+id/fstTxt4"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="62dp"
-      android:layout_marginLeft="62dp"
-      android:layout_marginTop="32dp"
+      android:layout_marginTop="30dp"
       android:background="#99009688"
       android:text="@string/username"
       android:textColor="#110202"

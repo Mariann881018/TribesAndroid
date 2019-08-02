@@ -1,12 +1,13 @@
 package com.greenfox.rikuriapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -34,6 +35,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -44,10 +46,9 @@ public class Register extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
-        nameInput = (EditText) findViewById(R.id.txtName);
-        passwordInput = (EditText) findViewById(R.id.txtPwd);
+        nameInput = (EditText) findViewById(R.id.registerNameEditTxt);
+        passwordInput = (EditText) findViewById(R.id.registerPasswordEditTxt);
         kingdomInput = (EditText) findViewById(R.id.txtKingdom);
-
         login = (Button) findViewById(R.id.btnReg);
 
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
@@ -58,7 +59,6 @@ public class Register extends AppCompatActivity {
              userDTO = new UserDTO(nameInput.getText().toString(), passwordInput.getText().toString(),
                      kingdomInput.getText().toString());
              register(jsonPlaceholderApi, userDTO );
-
             }
         });
     }

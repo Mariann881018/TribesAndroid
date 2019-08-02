@@ -1,5 +1,6 @@
 package com.greenfox.rikuriapp.Retrofit;
 
+import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginUserDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.UserDTO;
 
@@ -16,6 +17,9 @@ public interface JsonPlaceholderApi {
 
     @POST("register")
     Call<ResponseDTO> postOnRegister(@Body UserDTO input);
+
+    @POST("login")
+    Call<ResponseDTO> postOnLogin(@Body LoginUserDTO input);
 
     @HTTP(method = "POST", path= "/api/kingdom/resources", hasBody = true)
     Call<List<ResourceDto>> callResources(@Body RequestBody kingdomId);
