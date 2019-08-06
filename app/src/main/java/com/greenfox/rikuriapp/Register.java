@@ -41,7 +41,7 @@ public class Register extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://calm-peak-87984.herokuapp.com")
+                .baseUrl(new AppConstants().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
