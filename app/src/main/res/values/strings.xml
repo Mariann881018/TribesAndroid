@@ -11,5 +11,6 @@
     <string name="user_kingdom_name">Username</string>
     <string name="upgradeTroopBtn">Upgrade Troop</string>
     <string name="createTroopBtn">Create Troop</string>
+    <string name="troops">Your Troops</string>
 
 </resources>
