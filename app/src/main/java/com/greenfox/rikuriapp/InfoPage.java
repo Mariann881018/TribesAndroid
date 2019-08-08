@@ -61,7 +61,7 @@ public class InfoPage extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://calm-peak-87984.herokuapp.com")
+                .baseUrl("https://calm-peak-87984.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
@@ -72,6 +72,11 @@ public class InfoPage extends AppCompatActivity {
 
     public void logout() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void getAcademy() {
+        Intent intent = new Intent(this, Academy.class);
         startActivity(intent);
     }
 
@@ -114,7 +119,7 @@ public class InfoPage extends AppCompatActivity {
     public void getResourceListView(List<ResourceDto> resourceDtos){
         listResources = (ListView) findViewById(R.id.listResources);
         final String[] resources  = new String[resourceDtos.size()];
-        for(int i = 0; i < resources.length; i++){
+        for(int i = 0; i < resources.length; i++) {
             resources[i] = resourceDtos.get(i).getType().name() + ": " + resourceDtos.get(i).getAmount();
         }
         ArrayAdapter resourceArrayAdapter = new ArrayAdapter(
@@ -166,11 +171,11 @@ public class InfoPage extends AppCompatActivity {
         });
     }
 
-    public void getBuildingListView(List<BuildingDto> buildingDtos){
+    public void getBuildingListView(final List<BuildingDto> buildingDtos){
         listBuildings = (ListView) findViewById(R.id.listBuildings);
         final String[] buildings = new String[buildingDtos.size()];
         for(int i = 0; i < buildings.length; i++){
-            buildings[i] =buildingDtos.get(i).getType().name() + ": level " + buildingDtos.get(i).getLevel();
+            buildings[i] = buildingDtos.get(i).getType().name() + ": level " + buildingDtos.get(i).getLevel();
         }
         ArrayAdapter buildingArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,
@@ -179,6 +184,9 @@ public class InfoPage extends AppCompatActivity {
         listBuildings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if (buildingDtos.get(i).getType().name().equals("ACADEMY")) {
+                    getAcademy();
+                }
                 Toast.makeText(InfoPage.this, "You selected: " + buildings[i], Toast.LENGTH_LONG).show();
             }
         });
