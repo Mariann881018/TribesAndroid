@@ -1,9 +1,11 @@
 package com.greenfox.rikuriapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class InfoPage extends AppCompatActivity {
 
+    Button logout;
     ListView listBuildings;
     ListView listResources;
     String userName;
@@ -40,6 +43,15 @@ public class InfoPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_page);
         userName = getIntent().getStringExtra("username");
+        logout = (Button) findViewById(R.id.logoutBtn);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(InfoPage.this, "You successfully logged out!", Toast.LENGTH_LONG).show();
+                logout();
+            }
+        });
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
@@ -56,6 +68,11 @@ public class InfoPage extends AppCompatActivity {
         Long kingdomId = getIntent().getLongExtra("id", 1L);
         getResources(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
         getBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
+    }
+
+    public void logout() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void getResources(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto kingdomId) {
