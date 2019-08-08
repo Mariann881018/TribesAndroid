@@ -55,9 +55,9 @@ public class Register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-             userDTO = new UserDTO(nameInput.getText().toString(), passwordInput.getText().toString(),
-                     kingdomInput.getText().toString());
-             register(jsonPlaceholderApi, userDTO );
+                userDTO = new UserDTO(nameInput.getText().toString(), passwordInput.getText().toString(),
+                        kingdomInput.getText().toString());
+                register(jsonPlaceholderApi, userDTO );
             }
         });
     }
