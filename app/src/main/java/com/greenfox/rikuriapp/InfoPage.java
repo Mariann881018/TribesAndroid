@@ -17,6 +17,7 @@ import com.greenfox.rikuriapp.Retrofit.JsonPlaceholderApi;
 import com.greenfox.rikuriapp.Retrofit.KingdomIdDto;
 import com.greenfox.rikuriapp.Retrofit.ResourceDto;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,8 +73,17 @@ public class InfoPage extends AppCompatActivity {
                     getResourceListView(resourceDtos);
                 } else {
                     int i = response.code();
-                    String error = "Status: " + i;
-                    Toast.makeText(InfoPage.this, error, Toast.LENGTH_LONG).show();
+                    String resp = null;
+                    try {
+                        resp = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String[] array = resp.split("\"");
+                    String message = array[7];
+                    message.replace("\"", "" );
+
+                    Toast.makeText(InfoPage.this, Integer.toString(i) + ": " + message, Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -118,8 +128,17 @@ public class InfoPage extends AppCompatActivity {
                     getBuildingListView(buildingDtos);
                 } else {
                     int i = response.code();
-                    String error = "Status: " + i;
-                    Toast.makeText(InfoPage.this, error, Toast.LENGTH_LONG).show();
+                    String resp = null;
+                    try {
+                        resp = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String[] array = resp.split("\"");
+                    String message = array[7];
+                    message.replace("\"", "" );
+
+                    Toast.makeText(InfoPage.this, Integer.toString(i) + ": " + message, Toast.LENGTH_LONG).show();
                 }
             }
 

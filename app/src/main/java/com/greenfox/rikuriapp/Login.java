@@ -17,8 +17,10 @@ import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginUserDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.Spliterator;
 
 import okhttp3.internal.http2.Header;
 import retrofit2.Call;
@@ -79,7 +81,17 @@ public class Login extends AppCompatActivity {
                     infoPage(token, 11L, response.body().getUserName());
                 }else{
                     int i = response.code();
-                    Toast.makeText(Login.this, Integer.toString(i), Toast.LENGTH_LONG).show();
+                    String resp = null;
+                    try {
+                        resp = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String[] array = resp.split("\"");
+                    String message = array[7];
+                    message.replace("\"", "" );
+
+                    Toast.makeText(Login.this, Integer.toString(i) + ": " + message, Toast.LENGTH_LONG).show();
                 }
             }
 
