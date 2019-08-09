@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://calm-peak-87984.herokuapp.com")
+                .baseUrl(new AppConstants().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
 
 
-        infoPage = (Button) findViewById(R.id.btnLogin2);
+        infoPage = (Button) findViewById(R.id.createTroopBtn);
         infoPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +98,7 @@ public class Login extends AppCompatActivity {
 
     public void infoPage(String extraIntent, Long kingdomId, String userName ) {
         Intent intent = new Intent(this, InfoPage.class);
+        intent.putExtra("id", kingdomId);
         intent.putExtra("token", extraIntent);
          intent.putExtra("username", userName);
         startActivity(intent);

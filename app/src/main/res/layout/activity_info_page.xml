@@ -42,6 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:hint="@string/user_kingdom_name"
         android:background="@drawable/rounded_corners"
         android:textColorHint="#000000"
