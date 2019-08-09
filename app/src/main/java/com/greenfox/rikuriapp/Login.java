@@ -78,7 +78,7 @@ public class Login extends AppCompatActivity {
                     Set<String> headers =  response.headers().toMultimap().keySet();
                     String token = response.headers().get("authorization");
                     String userName = response.body().getUserName();
-                    infoPage(token, 74L, response.body().getUserName());
+                    infoPage(token, 74L, userName);
                 }else{
                     int i = response.code();
                     String resp = null;
@@ -104,7 +104,8 @@ public class Login extends AppCompatActivity {
     public void infoPage(String extraIntent, Long kingdomId, String userName ) {
         Intent intent = new Intent(this, InfoPage.class);
         intent.putExtra("token", extraIntent);
-         intent.putExtra("username", userName);
+        intent.putExtra("username", userName);
+        intent.putExtra("id", kingdomId);
         startActivity(intent);
     }
 }

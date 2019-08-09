@@ -1,6 +1,5 @@
 package com.greenfox.rikuriapp.Retrofit;
 
-import com.google.gson.JsonObject;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginUserDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
@@ -8,13 +7,14 @@ import com.greenfox.rikuriapp.Retrofit.registerdtos.UserDTO;
 
 import java.util.List;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface JsonPlaceholderApi {
 
@@ -32,6 +32,11 @@ public interface JsonPlaceholderApi {
     @HTTP(method = "POST", path= "api/kingdom/buildings", hasBody = true)
     Call<List<BuildingDto>> callBuildings(@Body KingdomIdDto kingdomId,
                                           @Header("authorization") String key);
+
+    @PUT("api/kingdom/building/{id}")
+    Call<BuildingDto> callUpgradeBuilding(@Body KingdomIdDto kingdomId,
+                                          @Header("authorization") String key,
+                                          @Path("id") Long buildingId);
 
     @GET("admin")
     Call<Void> callAdmin();

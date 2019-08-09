@@ -38,6 +38,7 @@ public class InfoPage extends AppCompatActivity {
     String userName;
     TextView user_kingdom_name;
     String token;
+    Long kingdomId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +67,8 @@ public class InfoPage extends AppCompatActivity {
                 .baseUrl("https://calm-peak-87984.herokuapp.com")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
+        kingdomId = getIntent().getLongExtra("id", 1L);
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
-        Long kingdomId = getIntent().getLongExtra("id", 1L);
         getResources(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
         getBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId), token, kingdomId,userName);
     }
