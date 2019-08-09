@@ -11,18 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.greenfox.rikuriapp.Retrofit.JsonPlaceholderApi;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginUserDTO;
-import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
-import java.util.Spliterator;
 
-import okhttp3.internal.http2.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,7 +73,7 @@ public class Login extends AppCompatActivity {
                     Set<String> headers =  response.headers().toMultimap().keySet();
                     String token = response.headers().get("authorization");
                     String userName = response.body().getUserName();
-                    infoPage(token, 11L, response.body().getUserName());
+                    infoPage(token, 74L, response.body().getUserName());
                 }else{
                     int i = response.code();
                     String resp = null;
@@ -104,8 +99,7 @@ public class Login extends AppCompatActivity {
     public void infoPage(String extraIntent, Long kingdomId, String userName ) {
         Intent intent = new Intent(this, InfoPage.class);
         intent.putExtra("token", extraIntent);
-        intent.putExtra("id", kingdomId);
-        intent.putExtra("username", userName);
+         intent.putExtra("username", userName);
         startActivity(intent);
     }
 }
