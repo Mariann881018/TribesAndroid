@@ -69,8 +69,8 @@ public class Academy extends AppCompatActivity {
     }
 
     public void logout() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        Intent logout = new Intent(this, MainActivity.class);
+        startActivity(logout);
     }
 
     public void getTroops(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto kingdomId) {

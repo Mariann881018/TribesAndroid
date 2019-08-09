@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
 
 
-        infoPage = (Button) findViewById(R.id.createTroop);
+        infoPage = (Button) findViewById(R.id.infoPage);
         infoPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity {
                     Set<String> headers =  response.headers().toMultimap().keySet();
                     String token = response.headers().get("authorization");
                     String userName = response.body().getUserName();
-                    infoPage(token, 11L, response.body().getUserName());
+                    infoPage(token, 74L, response.body().getUserName());
                 }else{
                     int i = response.code();
                     String resp = null;

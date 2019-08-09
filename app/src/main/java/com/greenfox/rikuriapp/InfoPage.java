@@ -37,6 +37,7 @@ public class InfoPage extends AppCompatActivity {
     ListView listResources;
     String userName;
     TextView user_kingdom_name;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class InfoPage extends AppCompatActivity {
 
         user_kingdom_name = (TextView) findViewById(R.id.username);
         user_kingdom_name.setText(userName);
+        token = getIntent().getStringExtra("token");
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -67,7 +69,7 @@ public class InfoPage extends AppCompatActivity {
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
         Long kingdomId = getIntent().getLongExtra("id", 1L);
         getResources(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
-        getBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
+        getBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId), token, kingdomId, userName);
     }
 
     public void logout() {
@@ -75,8 +77,11 @@ public class InfoPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getAcademy() {
+    public void getAcademy(String extraIntent, Long kingdomId, String userName) {
         Intent intent = new Intent(this, Academy.class);
+        intent.putExtra("token", extraIntent);
+        intent.putExtra("id", kingdomId);
+        intent.putExtra("username", userName);
         startActivity(intent);
     }
 
@@ -135,7 +140,7 @@ public class InfoPage extends AppCompatActivity {
         });
     }
 
-    public void getBuildings(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto idDto){
+    public void getBuildings(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto idDto, final String extraIntent, final Long kingdomId, final String userName){
         String token = getIntent().getStringExtra("token");
         Call<List<BuildingDto>> callBuildings = jsonPlaceholderApi.callBuildings(idDto, token);
         callBuildings.enqueue(new Callback<List<BuildingDto>>() {
@@ -147,7 +152,7 @@ public class InfoPage extends AppCompatActivity {
                     Toast.makeText(InfoPage.this, Integer.toString(i), Toast.LENGTH_LONG).show();
                     List<BuildingDto> buildingDtos = new ArrayList<>();
                     buildingDtos = response.body();
-                    getBuildingListView(buildingDtos);
+                    getBuildingListView(buildingDtos, extraIntent, kingdomId, userName);
                 } else {
                     int i = response.code();
                     String resp = null;
@@ -171,7 +176,7 @@ public class InfoPage extends AppCompatActivity {
         });
     }
 
-    public void getBuildingListView(final List<BuildingDto> buildingDtos){
+    public void getBuildingListView(final List<BuildingDto> buildingDtos, final String extraIntent, final Long kingdomId, final String userName){
         listBuildings = (ListView) findViewById(R.id.listBuildings);
         final String[] buildings = new String[buildingDtos.size()];
         for(int i = 0; i < buildings.length; i++){
@@ -185,11 +190,19 @@ public class InfoPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (buildingDtos.get(i).getType().name().equals("ACADEMY")) {
-                    getAcademy();
+                    getAcademy(extraIntent, kingdomId, userName);
                 }
-                Toast.makeText(InfoPage.this, "You selected: " + buildings[i], Toast.LENGTH_LONG).show();
+                Toast.makeText(InfoPage.this, "You selected: " + buildings[i], Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void infoPage(String extraIntent, Long kingdomId, String userName ) {
+        Intent intent = new Intent(this, InfoPage.class);
+        intent.putExtra("token", extraIntent);
+        intent.putExtra("id", kingdomId);
+        intent.putExtra("username", userName);
+        startActivity(intent);
     }
 }
 
