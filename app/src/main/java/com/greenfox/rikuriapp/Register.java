@@ -15,6 +15,8 @@ import com.greenfox.rikuriapp.Retrofit.JsonPlaceholderApi;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.UserDTO;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,8 +81,17 @@ public class Register extends AppCompatActivity {
                     login();
                 }else{
                     int i = response.code();
-                    String error = "Status: " + i;
-                    Toast.makeText(Register.this, error, Toast.LENGTH_LONG).show();
+                    String resp = null;
+                    try {
+                        resp = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String[] array = resp.split("\"");
+                    String message = array[7];
+                    message.replace("\"", "" );
+
+                    Toast.makeText(Register.this, Integer.toString(i) + ": " + message, Toast.LENGTH_LONG).show();
                 }
             }
 
