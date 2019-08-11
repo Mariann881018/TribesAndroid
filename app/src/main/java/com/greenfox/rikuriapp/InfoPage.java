@@ -64,17 +64,34 @@ public class InfoPage extends AppCompatActivity {
         token = getIntent().getStringExtra("token");
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://calm-peak-87984.herokuapp.com")
+                .baseUrl(new AppConstants().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         kingdomId = getIntent().getLongExtra("id", 1L);
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
         getResources(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
-        getBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId), token, kingdomId,userName);
+
+        getBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId), token, kingdomId, userName);
     }
 
     public void logout() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void getAcademy(String extraIntent, Long kingdomId, String userName) {
+        Intent intent = new Intent(this, Academy.class);
+        intent.putExtra("token", extraIntent);
+        intent.putExtra("id", kingdomId);
+        intent.putExtra("username", userName);
+        startActivity(intent);
+    }
+
+    public void getTownhallPage(String extraIntent, Long kingdomId, String userName) {
+        Intent intent = new Intent(this, Townhall.class);
+        intent.putExtra("token", extraIntent);
+        intent.putExtra("id", kingdomId);
+        intent.putExtra("username", userName);
         startActivity(intent);
     }
 
@@ -117,7 +134,7 @@ public class InfoPage extends AppCompatActivity {
     public void getResourceListView(List<ResourceDto> resourceDtos){
         listResources = (ListView) findViewById(R.id.listResources);
         final String[] resources  = new String[resourceDtos.size()];
-        for(int i = 0; i < resources.length; i++){
+        for(int i = 0; i < resources.length; i++) {
             resources[i] = resourceDtos.get(i).getType().name() + ": " + resourceDtos.get(i).getAmount();
         }
         ArrayAdapter resourceArrayAdapter = new ArrayAdapter(
@@ -133,8 +150,7 @@ public class InfoPage extends AppCompatActivity {
         });
     }
 
-    public void getBuildings(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto idDto,
-                             final String extraIntent, final Long kingdomId, final String username){
+    public void getBuildings(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto idDto, final String extraIntent, final Long kingdomId, final String userName){
         String token = getIntent().getStringExtra("token");
         Call<List<BuildingDto>> callBuildings = jsonPlaceholderApi.callBuildings(idDto, token);
         callBuildings.enqueue(new Callback<List<BuildingDto>>() {
@@ -146,7 +162,7 @@ public class InfoPage extends AppCompatActivity {
                     Toast.makeText(InfoPage.this, Integer.toString(i), Toast.LENGTH_LONG).show();
                     List<BuildingDto> buildingDtos = new ArrayList<>();
                     buildingDtos = response.body();
-                    getBuildingListView(buildingDtos, extraIntent, kingdomId, username);
+                    getBuildingListView(buildingDtos, extraIntent, kingdomId, userName);
                 } else {
                     int i = response.code();
                     String resp = null;
@@ -170,19 +186,11 @@ public class InfoPage extends AppCompatActivity {
         });
     }
 
-    public void getTownhallPage(String extraIntent, Long kingdomId, String userName) {
-        Intent intent = new Intent(this, Townhall.class);
-        intent.putExtra("token", extraIntent);
-        intent.putExtra("id", kingdomId);
-        intent.putExtra("username", userName);
-        startActivity(intent);
-    }
-
-    public void getBuildingListView(final List<BuildingDto> buildingDtos, final String extraIntent, final Long kingdomId, final String username){
+    public void getBuildingListView(final List<BuildingDto> buildingDtos, final String extraIntent, final Long kingdomId, final String username) {
         listBuildings = (ListView) findViewById(R.id.listBuildings);
         final String[] buildings = new String[buildingDtos.size()];
         for(int i = 0; i < buildings.length; i++){
-            buildings[i] =buildingDtos.get(i).getType().name() + ": level " + buildingDtos.get(i).getLevel();
+            buildings[i] = buildingDtos.get(i).getType().name() + ": level " + buildingDtos.get(i).getLevel();
         }
         ArrayAdapter buildingArrayAdapter = new ArrayAdapter(this,
                 android.R.layout.simple_list_item_1,
@@ -192,9 +200,11 @@ public class InfoPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (buildingDtos.get(i).getType().name().equals("TOWNHALL")) {
-                    getTownhallPage(token, kingdomId, userName);
+                    getTownhallPage(extraIntent, kingdomId, username);
+                } else if(buildingDtos.get(i).getType().name().equals("ACADEMY")) {
+                    getAcademy(extraIntent, kingdomId, username);
                 }
-                Toast.makeText(InfoPage.this, "You selected: " + buildings[i], Toast.LENGTH_LONG).show();
+                Toast.makeText(InfoPage.this, "You selected: " + buildings[i], Toast.LENGTH_SHORT).show();
             }
         });
     }

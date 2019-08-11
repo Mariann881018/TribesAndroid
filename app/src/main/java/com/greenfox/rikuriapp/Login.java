@@ -11,18 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.greenfox.rikuriapp.Retrofit.JsonPlaceholderApi;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginResponseDTO;
 import com.greenfox.rikuriapp.Retrofit.registerdtos.LoginUserDTO;
-import com.greenfox.rikuriapp.Retrofit.registerdtos.ResponseDTO;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
-import java.util.Spliterator;
 
-import okhttp3.internal.http2.Header;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,7 +42,7 @@ public class Login extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://calm-peak-87984.herokuapp.com")
+                .baseUrl(new AppConstants().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
@@ -56,7 +51,7 @@ public class Login extends AppCompatActivity {
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
 
 
-        infoPage = (Button) findViewById(R.id.btnLogin2);
+        infoPage = (Button) findViewById(R.id.createTroopBtn);
         infoPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +98,7 @@ public class Login extends AppCompatActivity {
 
     public void infoPage(String extraIntent, Long kingdomId, String userName ) {
         Intent intent = new Intent(this, InfoPage.class);
+        intent.putExtra("id", kingdomId);
         intent.putExtra("token", extraIntent);
         intent.putExtra("username", userName);
         intent.putExtra("id", kingdomId);

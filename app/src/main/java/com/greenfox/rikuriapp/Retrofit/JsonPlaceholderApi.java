@@ -27,7 +27,7 @@ public interface JsonPlaceholderApi {
 
     @HTTP(method = "POST", path= "api/kingdom/resources", hasBody = true)
     Call<List<ResourceDto>> callResources(@Body KingdomIdDto kingdomId,
-                                           @Header("authorization") String key);
+                                          @Header("authorization") String key);
 
     @HTTP(method = "POST", path= "api/kingdom/buildings", hasBody = true)
     Call<List<BuildingDto>> callBuildings(@Body KingdomIdDto kingdomId,
@@ -37,6 +37,10 @@ public interface JsonPlaceholderApi {
     Call<BuildingDto> callUpgradeBuilding(@Body KingdomIdDto kingdomId,
                                           @Header("authorization") String key,
                                           @Path("id") Long buildingId);
+
+    @HTTP(method = "POST", path= "api/kingdom/troops", hasBody = true)
+    Call<List<TroopDto>> callTroops(@Body KingdomIdDto kingdomId,
+                                    @Header("authorization") String key);
 
     @GET("admin")
     Call<Void> callAdmin();

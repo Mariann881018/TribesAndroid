@@ -6,10 +6,12 @@
     <string name="registration">Registration</string>
     <string name="password">Password</string>
     <string name="kingdom_name">Kingdom Name</string>
-    <string name="registerButton">  Register  </string>
+    <string name="registerButton">Register</string>
     <string name="loginButton">Login</string>
     <string name="user_kingdom_name">Username</string>
-    <string name="title_activity_test">Test</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="createTroopBtn">Create new troop</string>
+    <string name="troops">Upgrade Troops</string>
+    <string name="upgradeBuildings">Upgrade Buildings</string>
+    <string name="createBuildingBtn">Create new building</string>
+
 </resources>
