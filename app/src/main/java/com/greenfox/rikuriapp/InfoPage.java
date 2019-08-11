@@ -38,6 +38,7 @@ public class InfoPage extends AppCompatActivity {
     String userName;
     TextView user_kingdom_name;
     String token;
+    Long kingdomId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +68,8 @@ public class InfoPage extends AppCompatActivity {
                 .baseUrl(new AppConstants().getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-
+        kingdomId = getIntent().getLongExtra("id", 1L);
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
-        Long kingdomId = getIntent().getLongExtra("id", 1L);
         getResources(jsonPlaceholderApi, new KingdomIdDto(kingdomId));
 
         getBuildings(jsonPlaceholderApi, new KingdomIdDto(kingdomId), token, kingdomId, userName);
@@ -80,16 +80,8 @@ public class InfoPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getAcademy(String extraIntent, Long kingdomId, String userName) {
+    public void getAuthentication(String extraIntent, Long kingdomId, String userName) {
         Intent intent = new Intent(this, Academy.class);
-        intent.putExtra("token", extraIntent);
-        intent.putExtra("id", kingdomId);
-        intent.putExtra("username", userName);
-        startActivity(intent);
-    }
-
-    public void getTownhallPage(String extraIntent, Long kingdomId, String userName) {
-        Intent intent = new Intent(this, Townhall.class);
         intent.putExtra("token", extraIntent);
         intent.putExtra("id", kingdomId);
         intent.putExtra("username", userName);
@@ -201,9 +193,9 @@ public class InfoPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (buildingDtos.get(i).getType().name().equals("TOWNHALL")) {
-                    getTownhallPage(extraIntent, kingdomId, username);
+                    getAuthentication(extraIntent, kingdomId, username);
                 } else if(buildingDtos.get(i).getType().name().equals("ACADEMY")) {
-                    getAcademy(extraIntent, kingdomId, username);
+                    getAuthentication(extraIntent, kingdomId, username);
                 }
                 Toast.makeText(InfoPage.this, "You selected: " + buildings[i], Toast.LENGTH_SHORT).show();
             }
