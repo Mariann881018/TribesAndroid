@@ -12,8 +12,9 @@
         android:roundIcon="@drawable/transparentlogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Academy"></activity>
-        <activity android:name=".Townhall"></activity>
+        <activity android:name=".CreateBuilding"></activity>
+        <activity android:name=".Academy" />
+        <activity android:name=".Townhall" />
         <activity android:name=".InfoPage" />
         <activity android:name=".Login" />
         <activity android:name=".Register" />

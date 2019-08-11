@@ -44,8 +44,8 @@ public class InfoPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_page);
         userName = getIntent().getStringExtra("username");
-        logout = (Button) findViewById(R.id.logoutBtn);
 
+        logout = (Button) findViewById(R.id.logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +60,7 @@ public class InfoPage extends AppCompatActivity {
 
         user_kingdom_name = (TextView) findViewById(R.id.username);
         user_kingdom_name.setText(userName);
+
         token = getIntent().getStringExtra("token");
 
         Retrofit retrofit = new Retrofit.Builder()

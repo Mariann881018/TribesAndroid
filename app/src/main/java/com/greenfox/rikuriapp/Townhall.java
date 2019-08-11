@@ -41,8 +41,8 @@ public class Townhall extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_townhall);
         userName = getIntent().getStringExtra("username");
-        logout = (Button) findViewById(R.id.logoutBtn);
 
+        logout = (Button) findViewById(R.id.logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +59,7 @@ public class Townhall extends AppCompatActivity {
         user_kingdom_name.setText(userName);
 
         Retrofit retrofit = new Retrofit.Builder()
-          .baseUrl("https://calm-peak-87984.herokuapp.com")
+          .baseUrl(new AppConstants().getBaseUrl())
           .addConverterFactory(GsonConverterFactory.create(gson))
           .build();
 
