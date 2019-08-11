@@ -80,7 +80,15 @@ public class InfoPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getAuthentication(String extraIntent, Long kingdomId, String userName) {
+    public void getTownhall(String extraIntent, Long kingdomId, String userName) {
+        Intent intent = new Intent(this, Townhall.class);
+        intent.putExtra("token", extraIntent);
+        intent.putExtra("id", kingdomId);
+        intent.putExtra("username", userName);
+        startActivity(intent);
+    }
+
+    public void getAcademy(String extraIntent, Long kingdomId, String userName) {
         Intent intent = new Intent(this, Academy.class);
         intent.putExtra("token", extraIntent);
         intent.putExtra("id", kingdomId);
@@ -193,9 +201,9 @@ public class InfoPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (buildingDtos.get(i).getType().name().equals("TOWNHALL")) {
-                    getAuthentication(extraIntent, kingdomId, username);
+                    getTownhall(extraIntent, kingdomId, username);
                 } else if(buildingDtos.get(i).getType().name().equals("ACADEMY")) {
-                    getAuthentication(extraIntent, kingdomId, username);
+                    getAcademy(extraIntent, kingdomId, username);
                 }
                 Toast.makeText(InfoPage.this, "You selected: " + buildings[i], Toast.LENGTH_SHORT).show();
             }

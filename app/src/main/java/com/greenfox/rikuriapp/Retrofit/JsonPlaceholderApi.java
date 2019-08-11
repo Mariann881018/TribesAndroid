@@ -40,8 +40,8 @@ public interface JsonPlaceholderApi {
 
     @PUT("api/kingdom/troop/{level}")
     Call<TroopDto> callUpgradeTroop(@Body KingdomIdDto kingdomId,
-                                       @Header("authorization") String key,
-                                       @Path("level") Integer level);
+                                    @Header("authorization") String key,
+                                    @Path("level") Integer level);
 
     @HTTP(method = "POST", path= "api/kingdom/troops", hasBody = true)
     Call<List<TroopDto>> callTroops(@Body KingdomIdDto kingdomId,

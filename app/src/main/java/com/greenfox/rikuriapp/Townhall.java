@@ -55,7 +55,8 @@ public class Townhall extends AppCompatActivity {
             }
         });
 
-        createNewBuilding = (Button) findViewById(R.id.createBuilding);
+
+        createNewBuilding = (Button) findViewById(R.id.goToBuildingActivity);
         createNewBuilding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,7 +64,6 @@ public class Townhall extends AppCompatActivity {
                 goToCreateBuildingActivity();
             }
         });
-
 
         user_kingdom_name = (TextView) findViewById(R.id.username);
         user_kingdom_name.setText(userName);
@@ -95,6 +95,7 @@ public class Townhall extends AppCompatActivity {
     }
 
     public void getBuildings(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto idDto) {
+        String token = getIntent().getStringExtra("token");
         Call<List<BuildingDto>> callBuildings = jsonPlaceholderApi.callBuildings(idDto, token);
         callBuildings.enqueue(new Callback<List<BuildingDto>>() {
 

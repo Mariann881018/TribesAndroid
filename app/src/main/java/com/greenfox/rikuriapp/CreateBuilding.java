@@ -40,6 +40,7 @@ public class CreateBuilding extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_building);
         userName = getIntent().getStringExtra("username");
+        token = getIntent().getStringExtra("token");
 
         logout = (Button) findViewById(R.id.logoutBtn);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -66,16 +67,20 @@ public class CreateBuilding extends AppCompatActivity {
                 .build();
 
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
-        Long kingdomId = getIntent().getLongExtra("id", 1L);
+        final Long kingdomId = getIntent().getLongExtra("id", 1L);
 
         createBuildingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getCreateNewBuilding(jsonPlaceholderApi, new KingdomIdDto(74L));
+                getCreateNewBuilding(jsonPlaceholderApi, new KingdomIdDto(74L), token, 74L, userName);
             }
         });
+    }
 
-        token = getIntent().getStringExtra("token");
+    public void checkButton(View view) {
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        Toast.makeText(this, "Your selected building type is: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
     }
 
     public void logout() {
@@ -91,9 +96,9 @@ public class CreateBuilding extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getCreateNewBuilding(JsonPlaceholderApi jsonPlaceholderApi, KingdomIdDto kingdomId) {
+    public void getCreateNewBuilding(JsonPlaceholderApi jsonPlaceholderApi, final KingdomIdDto kingdomIdDto, final String extraIntent, final Long kingdomId, final String userName) {
         String token = getIntent().getStringExtra("token");
-        Call<NewBuildingDto> callNewBuilding = jsonPlaceholderApi.callNewBuilding(kingdomId, token);
+        Call<NewBuildingDto> callNewBuilding = jsonPlaceholderApi.callNewBuilding(kingdomIdDto, token);
         callNewBuilding.enqueue(new Callback<NewBuildingDto>() {
 
             @Override
@@ -101,6 +106,7 @@ public class CreateBuilding extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     int i = response.code();
                     Toast.makeText(CreateBuilding.this, Integer.toString(i), Toast.LENGTH_LONG).show();
+                    getTownhallPage(extraIntent, kingdomId, userName);
                 } else {
                     int i = response.code();
                     String resp = null;
