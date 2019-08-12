@@ -73,7 +73,7 @@ public class Login extends AppCompatActivity {
                     Set<String> headers =  response.headers().toMultimap().keySet();
                     String token = response.headers().get("authorization");
                     String userName = response.body().getUserName();
-                    infoPage(token, 74L, userName);
+                    infoPage(token, 76L, userName);
                 }else{
                     int i = response.code();
                     String resp = null;

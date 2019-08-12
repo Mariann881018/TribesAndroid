@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.greenfox.rikuriapp.Retrofit.BuildingType;
 import com.greenfox.rikuriapp.Retrofit.JsonPlaceholderApi;
 import com.greenfox.rikuriapp.Retrofit.KingdomIdDto;
 import com.greenfox.rikuriapp.Retrofit.NewBuildingDto;
@@ -34,6 +35,7 @@ public class CreateBuilding extends AppCompatActivity {
     TextView user_kingdom_name;
     String userName;
     String token;
+    BuildingType buildingType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +70,13 @@ public class CreateBuilding extends AppCompatActivity {
 
         final JsonPlaceholderApi jsonPlaceholderApi = retrofit.create(JsonPlaceholderApi.class);
         final Long kingdomId = getIntent().getLongExtra("id", 1L);
+        buildingType = null;
 
         createBuildingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getCreateNewBuilding(jsonPlaceholderApi, new KingdomIdDto(74L), token, 74L, userName);
+                NewBuildingDto newBuildingDto = new NewBuildingDto(buildingType, kingdomId);
+                getCreateNewBuilding(jsonPlaceholderApi, newBuildingDto, token, 74L, userName);
             }
         });
     }
@@ -80,7 +84,9 @@ public class CreateBuilding extends AppCompatActivity {
     public void checkButton(View view) {
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
+        buildingType = BuildingType.valueOf(radioButton.getText().toString());
         Toast.makeText(this, "Your selected building type is: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
+
     }
 
     public void logout() {
@@ -96,13 +102,13 @@ public class CreateBuilding extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void getCreateNewBuilding(JsonPlaceholderApi jsonPlaceholderApi, final KingdomIdDto kingdomIdDto, final String extraIntent, final Long kingdomId, final String userName) {
+    public void getCreateNewBuilding(JsonPlaceholderApi jsonPlaceholderApi, final NewBuildingDto newBuildingDto, final String extraIntent, final Long kingdomId, final String userName) {
         String token = getIntent().getStringExtra("token");
-        Call<NewBuildingDto> callNewBuilding = jsonPlaceholderApi.callNewBuilding(kingdomIdDto, token);
-        callNewBuilding.enqueue(new Callback<NewBuildingDto>() {
+        Call<String> callNewBuilding = jsonPlaceholderApi.callNewBuilding(newBuildingDto, token);
+        callNewBuilding.enqueue(new Callback<String>() {
 
             @Override
-            public void onResponse(Call<NewBuildingDto> call, Response<NewBuildingDto> response) {
+            public void onResponse(Call<String> call, Response<String> response) {
                 if (response.isSuccessful()) {
                     int i = response.code();
                     Toast.makeText(CreateBuilding.this, Integer.toString(i), Toast.LENGTH_LONG).show();
@@ -117,14 +123,14 @@ public class CreateBuilding extends AppCompatActivity {
                     }
                     String[] array = resp.split("\"");
                     String message = array[7];
-                    message.replace("\"", "" );
+                    message.replace("\"", "");
 
                     Toast.makeText(CreateBuilding.this, Integer.toString(i) + ": " + message, Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<NewBuildingDto> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(CreateBuilding.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

@@ -61,7 +61,7 @@ public class Townhall extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(Townhall.this, "Please select your new building's type!", Toast.LENGTH_LONG).show();
-                goToCreateBuildingActivity();
+                goToCreateBuildingActivity(token, kingdomId, userName);
             }
         });
 
@@ -89,8 +89,11 @@ public class Townhall extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void goToCreateBuildingActivity() {
+    public void goToCreateBuildingActivity(String extraIntent, Long kingdomId, String userName) {
         Intent goToCreateNewBuildingActivity = new Intent(this, CreateBuilding.class);
+        goToCreateNewBuildingActivity .putExtra("token", extraIntent);
+        goToCreateNewBuildingActivity .putExtra("id", kingdomId);
+        goToCreateNewBuildingActivity .putExtra("username", userName);
         startActivity(goToCreateNewBuildingActivity);
     }
 

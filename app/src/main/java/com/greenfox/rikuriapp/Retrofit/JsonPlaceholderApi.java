@@ -48,7 +48,7 @@ public interface JsonPlaceholderApi {
                                     @Header("authorization") String key);
 
     @HTTP(method = "POST", path = "api/kingdom/building", hasBody = true)
-    Call<NewBuildingDto> callNewBuilding(@Body KingdomIdDto kingdomId,
+    Call<String> callNewBuilding(@Body NewBuildingDto newBuildingDto,
                                          @Header("authorization") String key);
 
     @GET("admin")
